@@ -1,14 +1,30 @@
 <!doctype html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0" />
     <title>Emoji Extractor</title>
-  </head>
-  <body>
+</head>
+
+<body>
     <div id="app">
-      Emoji Extractor
+        <div class="uber-container">
+            <h1>Emoji Extractor</h1>
+            <label for="source-text"
+                   class="source-text">
+                Input Text
+            </label>
+            <textarea rows="10"
+                      class="source-text"
+                      id="source-text"
+                      placeholder="Enter text containing emoji"></textarea>
+            <div class="output-text-container"></div>
+        </div>
     </div>
-    <script type="module" src="/src/main.ts"></script>
-  </body>
+    <script type="module"
+            src="/src/main.ts"></script>
+</body>
+
 </html>
