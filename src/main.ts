@@ -24,19 +24,29 @@ function getExtractionDisplayer(emojis: string[], hexElements: HTMLElement[], ti
     titleContainer.innerText = title;
     titleContainer.className = "extractor-title";
 
-    const emojiContainer = document.createElement("div");
+    const detailsContainer = document.createElement("details");
+
+    const emojiContainer = document.createElement("summary");
     emojiContainer.className = "extracted-emoji";
+
     for (const emoji of emojis) {
         const singleEmoji = document.createElement("span");
         singleEmoji.innerText = emoji;
         emojiContainer.appendChild(singleEmoji);
     }
 
-    const hexConcontainer = document.createElement("div");
-    hexConcontainer.className = "hex-container";
-    hexConcontainer.append(...hexElements);
+    detailsContainer.appendChild(emojiContainer);
 
-    result.append(titleContainer, emojiContainer, hexConcontainer);
+    if (emojiContainer.children.length === 0) {
+        emojiContainer.innerText = "No Emoji Found"
+    } else {
+        const hexConcontainer = document.createElement("div");
+        hexConcontainer.className = "hex-container";
+        hexConcontainer.append(...hexElements);
+        detailsContainer.appendChild(hexConcontainer);
+    }
+
+    result.append(titleContainer, detailsContainer)
 
     return result;
 }

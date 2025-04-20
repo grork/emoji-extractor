@@ -30,7 +30,7 @@ textarea.source-text {
 
 .hex-container {
     font-family: monospace;
-    padding: 12px 0px 12px 12px;
+    margin: 12px 0px 12px 12px;
 }
 
 .hex-digit {
@@ -60,6 +60,8 @@ textarea.source-text {
 .extracted-emoji {
     margin-left: 12px;
     margin-right: 12px;
+    margin-top: 6px;
+    margin-bottom: 12px;
     line-height: 3.5ch;
     word-break: break-all;
 }
@@ -71,4 +73,8 @@ textarea.source-text {
     border-width: 1px;
     border-color: lightgrey;
     padding: 4px 3px;
+}
+
+summary {
+    list-style: none;
 }
