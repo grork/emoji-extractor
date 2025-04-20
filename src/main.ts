@@ -40,10 +40,10 @@ function getExtractionDisplayer(emojis: string[], hexElements: HTMLElement[], ti
     if (emojiContainer.children.length === 0) {
         emojiContainer.innerText = "No Emoji Found"
     } else {
-        const hexConcontainer = document.createElement("div");
-        hexConcontainer.className = "hex-container";
-        hexConcontainer.append(...hexElements);
-        detailsContainer.appendChild(hexConcontainer);
+        const hexContainer = document.createElement("div");
+        hexContainer.className = "hex-container";
+        hexContainer.append(...hexElements);
+        detailsContainer.appendChild(hexContainer);
     }
 
     result.append(titleContainer, detailsContainer)
@@ -54,7 +54,7 @@ function getExtractionDisplayer(emojis: string[], hexElements: HTMLElement[], ti
 function extractEmojiWithEmoji_Presentation(original: string): HTMLElement {
     const segmenter = new Intl.Segmenter(undefined /* runtime default locale*/, { granularity: "grapheme" });
     const extractedClusters = segmenter.segment(original);
-    const emojies = <string[]>[];
+    const emojis = <string[]>[];
 
     // Filter them to check if any match the complex & rich regex that helps
     // check if there are any emoji (although, the regex cannot successfully
@@ -68,92 +68,62 @@ function extractEmojiWithEmoji_Presentation(original: string): HTMLElement {
         // Note, that if you don't do this, the segmenter will have given
         // you all the characters, not just emojis. Doh.
         if (/\p{Emoji_Presentation}/v.test(cluster.segment)) {
-            emojies.push(cluster.segment);
+            emojis.push(cluster.segment);
         }
     }
 
-    const result = emojies.join('');
-    return getExtractionDisplayer(emojies, convertToHexAsElements(result), "{Emoji_Presentation} Regex");
+    const result = emojis.join('');
+    return getExtractionDisplayer(emojis, convertToHexAsElements(result), "{Emoji_Presentation} Regex");
 }
 
 function extractEmojiWithEmoji(original: string): HTMLElement {
     const segmenter = new Intl.Segmenter(undefined /* runtime default locale*/, { granularity: "grapheme" });
     const extractedClusters = segmenter.segment(original);
-    const emojies = <string[]>[];
+    const emojis = <string[]>[];
 
-    // Filter them to check if any match the complex & rich regex that helps
-    // check if there are any emoji (although, the regex cannot successfully
-    // extract them)
     for (const cluster of extractedClusters) {
-        // Match _emojis_. But of course emojies aren't that simple. This
-        // captures both new -- pretty colours! -- and old ones that actually
-        // have a colour variation. We will match the variation added by modern
-        // input stacks -- which is to say the mono-glyph + 'colour variation'
-        // selector. (See more: https://stackoverflow.com/questions/70401560/what-is-the-difference-between-emoji-presentation-and-extended-pictographic)
-        // Note, that if you don't do this, the segmenter will have given
-        // you all the characters, not just emojis. Doh.
         if (/\p{Emoji}/v.test(cluster.segment)) {
-            emojies.push(cluster.segment);
+            emojis.push(cluster.segment);
         }
     }
 
-    const result = emojies.join('');
-    return getExtractionDisplayer(emojies, convertToHexAsElements(result), "{Emoji} Regex");
+    const result = emojis.join('');
+    return getExtractionDisplayer(emojis, convertToHexAsElements(result), "{Emoji} Regex");
 }
 
 function extractEmojiWithEmojiRegexXs(original: string): HTMLElement {
     const segmenter = new Intl.Segmenter(undefined /* runtime default locale*/, { granularity: "grapheme" });
     const extractedClusters = segmenter.segment(original);
-    const emojies = <string[]>[];
+    const emojis = <string[]>[];
 
     const r = String.raw;
     const seq = r`(?:\p{Emoji}\uFE0F\u20E3?|\p{Emoji_Modifier_Base}\p{Emoji_Modifier}?|\p{Emoji_Presentation})`;
     const sTags = r`\u{E0061}-\u{E007A}`;
     const matcher = new RegExp(r`[\u{1F1E6}-\u{1F1FF}]{2}|\u{1F3F4}[${sTags}]{2}[\u{E0030}-\u{E0039}${sTags}]{1,3}\u{E007F}|${seq}(?:\u200D${seq})*`, 'gu');
 
-    // Filter them to check if any match the complex & rich regex that helps
-    // check if there are any emoji (although, the regex cannot successfully
-    // extract them)
     for (const cluster of extractedClusters) {
-        // Match _emojis_. But of course emojies aren't that simple. This
-        // captures both new -- pretty colours! -- and old ones that actually
-        // have a colour variation. We will match the variation added by modern
-        // input stacks -- which is to say the mono-glyph + 'colour variation'
-        // selector. (See more: https://stackoverflow.com/questions/70401560/what-is-the-difference-between-emoji-presentation-and-extended-pictographic)
-        // Note, that if you don't do this, the segmenter will have given
-        // you all the characters, not just emojis. Doh.
         if (matcher.test(cluster.segment)) {
-            emojies.push(cluster.segment);
+            emojis.push(cluster.segment);
         }
     }
 
-    const result = emojies.join('');
-    return getExtractionDisplayer(emojies, convertToHexAsElements(result), "emoji-regex-xs");
+    const result = emojis.join('');
+    return getExtractionDisplayer(emojis, convertToHexAsElements(result), "emoji-regex-xs");
 }
 
 function extractEmojiWithEmojiAndNumber(original: string): HTMLElement {
     const segmenter = new Intl.Segmenter(undefined /* runtime default locale*/, { granularity: "grapheme" });
     const extractedClusters = segmenter.segment(original);
-    const emojies = <string[]>[];
+    const emojis = <string[]>[];
 
-    // Filter them to check if any match the complex & rich regex that helps
-    // check if there are any emoji (although, the regex cannot successfully
-    // extract them)
     for (const cluster of extractedClusters) {
-        // Match _emojis_. But of course emojies aren't that simple. This
-        // captures both new -- pretty colours! -- and old ones that actually
-        // have a colour variation. We will match the variation added by modern
-        // input stacks -- which is to say the mono-glyph + 'colour variation'
-        // selector. (See more: https://stackoverflow.com/questions/70401560/what-is-the-difference-between-emoji-presentation-and-extended-pictographic)
-        // Note, that if you don't do this, the segmenter will have given
-        // you all the characters, not just emojis. Doh.
         if (/\p{Emoji}/v.test(cluster.segment) && !(cluster.segment >= '0' && cluster.segment <= '9')) {
-            emojies.push(cluster.segment);
+            emojis.push(cluster.segment);
         }
     }
 
-    const result = emojies.join('');
-    return getExtractionDisplayer(emojies, convertToHexAsElements(result), "{Emoji} Regex + 0-9 check");
+    const result = emojis.join('');
+    return getExtractionDisplayer(emojis, convertToHexAsElements(result), "{Emoji} Regex + 0-9 check");
 }
 
 const converters = [
