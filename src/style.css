@@ -28,7 +28,7 @@ textarea.source-text {
     padding: 12px;
 }
 
-div.output-text-container {
+.hex-container {
     font-family: monospace;
     padding: 12px 0px 12px 12px;
 }
@@ -41,4 +41,34 @@ div.output-text-container {
 
 .selected {
     font-weight: bold;
+}
+
+.extraction-container {
+    border-radius: 6px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: lightgrey;
+    margin-top: 6px;
+    margin-bottom: 12px;
+}
+
+.extractor-title {
+    margin: 12px;
+    font-weight: bold;
+}
+
+.extracted-emoji {
+    margin-left: 12px;
+    margin-right: 12px;
+    line-height: 3.5ch;
+    word-break: break-all;
+}
+
+.extracted-emoji>span {
+    margin-right: 6px;
+    border-radius: 4px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: lightgrey;
+    padding: 4px 3px;
 }
