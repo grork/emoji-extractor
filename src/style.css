@@ -29,6 +29,16 @@ textarea.source-text {
 }
 
 div.output-text-container {
-    overflow-wrap: anywhere;
-    padding: 12px;
+    font-family: monospace;
+    padding: 12px 0px 12px 12px;
+}
+
+.hex-digit {
+    display: inline-block;
+    margin-right: 6px;
+    width: 2ch;
+}
+
+.selected {
+    font-weight: bold;
 }
